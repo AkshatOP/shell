@@ -37,6 +37,36 @@ class DesktopClock : public settings::ObjectNode {
     CONFIG_SUBOBJECT(DesktopClockShadow, shadow)
 };
 
+class DesktopLyricsBackground : public settings::ObjectNode {
+    CONFIG_NODE(DesktopLyricsBackground, settings::ObjectNode)
+
+    CONFIG_PROPERTY(bool, enabled, false)
+    CONFIG_PROPERTY(qreal, opacity, 0.7)
+    CONFIG_PROPERTY(bool, blur, true)
+};
+
+class DesktopLyricsShadow : public settings::ObjectNode {
+    CONFIG_NODE(DesktopLyricsShadow, settings::ObjectNode)
+
+    CONFIG_PROPERTY(bool, enabled, true)
+    CONFIG_PROPERTY(qreal, opacity, 0.7)
+    CONFIG_PROPERTY(qreal, blur, 0.4)
+};
+
+class DesktopLyrics : public settings::ObjectNode {
+    CONFIG_NODE(DesktopLyrics, settings::ObjectNode)
+
+    CONFIG_PROPERTY(bool, enabled, false)
+    CONFIG_PROPERTY(bool, autoHideFullscreen, true)
+    CONFIG_PROPERTY(bool, autoHideTiled, true)
+    CONFIG_PROPERTY(qreal, scale, 1.0)
+    CONFIG_PROPERTY(QString, position, u"bottom-center"_s)
+    CONFIG_PROPERTY(int, alignment, 1)
+    CONFIG_PROPERTY(bool, invertColors, false)
+    CONFIG_SUBOBJECT(DesktopLyricsBackground, background)
+    CONFIG_SUBOBJECT(DesktopLyricsShadow, shadow)
+};
+
 class BackgroundVisualiser : public settings::ObjectNode {
     CONFIG_NODE(BackgroundVisualiser, settings::ObjectNode)
 
@@ -54,6 +84,7 @@ class BackgroundConfig : public settings::ObjectNode {
     CONFIG_PROPERTY(bool, wallpaperEnabled, true)
     CONFIG_ENUM_PROPERTY(WallpaperTransition, wallpaperTransition, WallpaperTransition::Crossfade)
     CONFIG_SUBOBJECT(DesktopClock, desktopClock)
+    CONFIG_SUBOBJECT(DesktopLyrics, desktopLyrics)
     CONFIG_SUBOBJECT(BackgroundVisualiser, visualiser)
 };
 

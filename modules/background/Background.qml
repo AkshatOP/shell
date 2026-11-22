@@ -161,5 +161,115 @@ Variants {
                 absY: clockLoader.y
             }
         }
+
+        // Desktop lyrics (ported from MiDnight)
+        Loader {
+            id: lyricsLoader
+
+            readonly property int barZone: Tokens.sizes.bar.innerWidth + Math.max(Tokens.padding.small, Config.border.thickness)
+
+            asynchronous: true
+            active: Config.background.desktopLyrics.enabled
+
+            anchors.margins: Tokens.padding.extraLargeIncreased
+            anchors.leftMargin: Tokens.padding.extraLargeIncreased + barZone
+            anchors.horizontalCenterOffset: barZone / 2
+
+            state: Config.background.desktopLyrics.position
+            states: [
+                State {
+                    name: "top-left"
+
+                    AnchorChanges {
+                        target: lyricsLoader
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                    }
+                },
+                State {
+                    name: "top-center"
+
+                    AnchorChanges {
+                        target: lyricsLoader
+                        anchors.top: parent.top
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                },
+                State {
+                    name: "top-right"
+
+                    AnchorChanges {
+                        target: lyricsLoader
+                        anchors.top: parent.top
+                        anchors.right: parent.right
+                    }
+                },
+                State {
+                    name: "middle-left"
+
+                    AnchorChanges {
+                        target: lyricsLoader
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.left: parent.left
+                    }
+                },
+                State {
+                    name: "middle-center"
+
+                    AnchorChanges {
+                        target: lyricsLoader
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                },
+                State {
+                    name: "middle-right"
+
+                    AnchorChanges {
+                        target: lyricsLoader
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.right: parent.right
+                    }
+                },
+                State {
+                    name: "bottom-left"
+
+                    AnchorChanges {
+                        target: lyricsLoader
+                        anchors.bottom: parent.bottom
+                        anchors.left: parent.left
+                    }
+                },
+                State {
+                    name: "bottom-center"
+
+                    AnchorChanges {
+                        target: lyricsLoader
+                        anchors.bottom: parent.bottom
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                },
+                State {
+                    name: "bottom-right"
+
+                    AnchorChanges {
+                        target: lyricsLoader
+                        anchors.bottom: parent.bottom
+                        anchors.right: parent.right
+                    }
+                }
+            ]
+
+            transitions: Transition {
+                AnchorAnim {}
+            }
+
+            sourceComponent: DesktopLyrics {
+                screen: win.modelData
+                wallpaper: behindClock
+                absX: lyricsLoader.x
+                absY: lyricsLoader.y
+            }
+        }
     }
 }
