@@ -103,6 +103,17 @@ class BarClock : public settings::ObjectNode {
     CONFIG_PROPERTY(bool, showSeconds, false)
 };
 
+class BarSpotify : public settings::ObjectNode {
+    CONFIG_NODE(BarSpotify, settings::ObjectNode)
+
+    CONFIG_PROPERTY(bool, background, false)
+    CONFIG_PROPERTY(bool, showVisualiser, true)
+    CONFIG_PROPERTY(int, maxTitleLength, 25)
+    CONFIG_PROPERTY(bool, inverted, false)
+    CONFIG_PROPERTY(bool, horizontalVolume, false)
+    CONFIG_PROPERTY(bool, autoHide, false)
+};
+
 class BarConfig : public settings::ObjectNode {
     CONFIG_NODE(BarConfig, settings::ObjectNode)
 
@@ -115,6 +126,7 @@ class BarConfig : public settings::ObjectNode {
     CONFIG_SUBOBJECT(BarActiveWindow, activeWindow)
     CONFIG_SUBOBJECT(BarTray, tray)
     CONFIG_SUBOBJECT(BarClock, clock)
+    CONFIG_SUBOBJECT(BarSpotify, spotify)
     CONFIG_LIST(EntryList, statusIcons,
         DEFAULT_ARG({
             LIST_ENTRY(lockStatus, true),

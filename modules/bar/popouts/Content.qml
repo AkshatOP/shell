@@ -120,6 +120,14 @@ Item {
         }
 
         Popout {
+            // Spotify widget popout (ported from MiDnight)
+            name: "spotify"
+            sourceComponent: Spotify {
+                popouts: root.popouts
+            }
+        }
+
+        Popout {
             name: "lockstatus"
             sourceComponent: LockStatus {}
         }

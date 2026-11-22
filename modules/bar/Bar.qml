@@ -72,6 +72,11 @@ ColumnLayout {
             popouts.currentName = id.toLowerCase();
             popouts.currentCenter = (ch.item as Item).mapToItem(root, 0, (ch.item as Item).implicitHeight / 2).y ?? 0;
             popouts.hasCurrent = true;
+        } else if (id === "spotify") {
+            // Spotify widget popout (ported from MiDnight)
+            popouts.currentName = "spotify";
+            popouts.currentCenter = (ch.item as Item).mapToItem(root, 0, (ch.item as Item).implicitHeight / 2).y ?? 0;
+            popouts.hasCurrent = true;
         }
     }
 
@@ -168,6 +173,18 @@ ColumnLayout {
                 delegate: EntryWrapper {
                     StatusIcons {
                         objectName: "taskbarStatusIcons"
+                    }
+                }
+            }
+            DelegateChoice {
+                // Spotify widget (ported from MiDnight)
+                roleValue: "spotify"
+                delegate: EntryWrapper {
+                    visible: !root.fullscreen && (!Config.bar.spotify.autoHide || Players.list.length > 0)
+
+                    Spotify {
+                        objectName: "taskbarSpotify"
+                        popouts: root.popouts
                     }
                 }
             }
