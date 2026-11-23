@@ -20,8 +20,9 @@ Item {
     required property int rounding
 
     readonly property bool showWallpapers: search.text.startsWith(`${GlobalConfig.launcher.actionPrefix}wallpaper `)
-    readonly property var currentList: showWallpapers ? wallpaperList.item : appList.item // Can be either ListView or PathView, so can't type properly
-    property string animState: showWallpapers ? "wallpapers" : "apps"
+    readonly property bool showKeybinds: search.text.startsWith(`${GlobalConfig.launcher.actionPrefix}keybinds `) || search.text === `${GlobalConfig.launcher.actionPrefix}keybinds` // ported from MiDnight
+    readonly property var currentList: showWallpapers ? wallpaperList.item : (showKeybinds ? keybindsList.item : appList.item) // Can be either ListView or PathView, so can't type properly
+    property string animState: showWallpapers ? "wallpapers" : (showKeybinds ? "keybinds" : "apps")
 
     anchors.horizontalCenter: parent.horizontalCenter
     anchors.bottom: parent.bottom
@@ -51,6 +52,20 @@ Item {
                 root.implicitWidth: Math.max(root.Tokens.sizes.launcher.itemWidth * 1.2, wallpaperList.implicitWidth)
                 root.implicitHeight: root.Tokens.sizes.launcher.wallpaperHeight
                 wallpaperList.active: true
+            }
+        },
+        State {
+            name: "keybinds"
+
+            PropertyChanges {
+                root.implicitWidth: root.Tokens.sizes.launcher.itemWidth
+                root.implicitHeight: Math.min(root.maxHeight, keybindsList.implicitHeight > 0 ? keybindsList.implicitHeight : empty.implicitHeight)
+                keybindsList.active: true
+            }
+
+            AnchorChanges {
+                anchors.left: root.parent.left
+                anchors.right: root.parent.right
             }
         }
     ]
@@ -110,6 +125,20 @@ Item {
         }
     }
 
+    // Keybinds list (ported from MiDnight)
+    Loader {
+        id: keybindsList
+
+        active: false
+
+        anchors.fill: parent
+
+        sourceComponent: KeybindsList {
+            search: root.search
+            screenState: root.screenState
+        }
+    }
+
     Row {
         id: empty
 
@@ -123,7 +152,7 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
 
         MaterialIcon {
-            text: root.state === "wallpapers" ? "wallpaper_slideshow" : "manage_search"
+            text: root.state === "wallpapers" ? "wallpaper_slideshow" : (root.state === "keybinds" ? "keyboard" : "manage_search")
             color: Colours.palette.m3onSurfaceVariant
             fontStyle: Tokens.font.icon.extraLarge
 
@@ -134,7 +163,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
 
             StyledText {
-                text: root.state === "wallpapers" ? Tr.tr("No wallpapers found") : Tr.tr("No results")
+                text: root.state === "wallpapers" ? Tr.tr("No wallpapers found") : (root.state === "keybinds" ? Tr.tr("No keybinds found") : Tr.tr("No results"))
                 color: Colours.palette.m3onSurfaceVariant
                 font: Tokens.font.body.builders.large.weight(Font.Medium).build()
             }

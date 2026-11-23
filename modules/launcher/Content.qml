@@ -72,6 +72,8 @@ Item {
                 } else if (text.startsWith(GlobalConfig.launcher.actionPrefix)) {
                     if (text.startsWith(`${GlobalConfig.launcher.actionPrefix}calc `))
                         currentItem.onClicked();
+                    else if (list.showKeybinds)
+                        currentItem.clicked();
                     else
                         currentItem.modelData.onClicked(list.currentList);
                 } else {
