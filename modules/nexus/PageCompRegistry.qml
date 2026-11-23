@@ -16,6 +16,7 @@ import qs.modules.nexus.pages.panels
 import qs.modules.nexus.pages.services
 import qs.modules.nexus.pages.wallandstyle
 import qs.modules.nexus.pages.panels.taskbar
+import qs.modules.nexus.pages.tokens
 
 QtObject {
     id: root
@@ -172,6 +173,30 @@ QtObject {
             StackPage {
                 Component {
                     LanguageAndRegion {}
+                }
+            }
+        },
+
+        Component {
+            // Shell Tokens (ported from MiDnight); subpage indices 1-5 are local to this StackPage
+            StackPage {
+                Component {
+                    TokensPage {}
+                }
+                Component {
+                    RoundingSpacingPage {}
+                }
+                Component {
+                    FontSizesPage {}
+                }
+                Component {
+                    BarDashboardPage {}
+                }
+                Component {
+                    WindowLockPage {}
+                }
+                Component {
+                    ShellElementsPage {}
                 }
             }
         },

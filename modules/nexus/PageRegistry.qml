@@ -83,6 +83,15 @@ QtObject {
             category: "shell"
         },
 
+        // Shell Tokens (ported from MiDnight). Kept just before About: bar/popouts/Wrapper.qml
+        // hardcodes indices 0-3, so nothing may be inserted above them. Must match PageCompRegistry order.
+        {
+            label: Tr.tr("Shell Tokens"),
+            icon: "tune",
+            description: Tr.tr("Spacing, rounding, font and element sizes"),
+            category: "shell"
+        },
+
         // About
         {
             label: Tr.tr("About"),
