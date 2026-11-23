@@ -12,6 +12,8 @@ import qs.modules.areapicker
 import qs.modules.background
 import qs.modules.drawers
 import qs.modules.lock
+import qs.modules.shimeji
+import qs.utils
 import qs.daemons
 
 ShellRoot {
@@ -46,6 +48,15 @@ ShellRoot {
     AreaPicker {}
     Lock {
         id: lock
+    }
+
+    // Shimeji desktop pets (ported from MiDnight)
+    Variants {
+        model: Screens.screens.filter(s => GlobalConfig.shimeji.enabled && GlobalConfig.shimeji.path.length > 0 && !Strings.testRegexList(GlobalConfig.shimeji.excludedScreens, s.name))
+
+        Shimeji {
+            shimejiCount: GlobalConfig.shimeji.count
+        }
     }
 
     // Daemons
